@@ -1,0 +1,49 @@
+body{
+    background-color: #f5f3f4;
+}
+
+.sidebar-nav{
+    position: fixed;
+    background-color: #222831;
+    box-sizing: border-box;
+    height: 100vh;  
+    width: 200px;    
+    padding: 20px;
+}
+
+
+/* fca311 */
+/* 621b00 */
+
+.sidebar-nav a{
+    text-decoration: none;
+    color:#FFFAF0;
+}
+
+.user-info{
+    color:#FFFAF0;
+    text-decoration: none;
+}
+
+.card{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    row-gap: 50px;
+    background-color: #222831;
+}
+
+
+.card-body a{
+    color: #FFFAF0;
+    text-decoration: none;
+}
+
+
+.card-body{
+    color: #FFFAF0;
+}
+
+.card title a:active{
+    text-decoration: none;
+}

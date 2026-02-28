@@ -1,0 +1,29 @@
+{% extends "base_generic.html" %}
+{% block content %}
+{% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+    <h1>Мақалалар Мұрағаты</h1>
+
+    {% if articles_list %}
+        <div class="container">
+          <div class="row">
+            {% for article in articles_list %}
+              <div class="col-sm-3">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">
+                      <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
+                    </h4>
+                    <!-- <p class="card-text">Some example text. Some example text.</p> -->
+                    <a href="{{ article.get_absolute_url }}" class="card-link">толығырақ оқыңыз</a>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+<!-- <a href="{{ article.get_absolute_url }}">{{ article.title }}</a> ({{article.author}}) -->
+    {% else %}
+      <p>There are no articles in the archive.</p>
+    {% endif %}
+{% endblock %}

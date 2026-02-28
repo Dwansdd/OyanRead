@@ -1,0 +1,13 @@
+{% extends "base_generic.html" %}
+{% block content %}
+  <h1>Title: {{ article.title }}</h1>
+
+  <p><strong>Author:</strong> {{ article.author }}</p>
+  <p><strong>Description:</strong> {{ article.description }}</p>
+  <p><strong>Genre:</strong> {% for genre in article.genre.all %} {{ genre }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Content</h4>
+    <p><strong>Content:</strong> {{ article.content }}</p>
+  </div>
+{% endblock %}
