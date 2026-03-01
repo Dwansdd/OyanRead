@@ -14,6 +14,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework import viewsets
 from .models import Author, Genre, Articles
 from .serializers import ArticlesSerializer1
+from oyan.forms import ArticleForm
+from django.http import HttpResponseRedirect
 # прописываем логику в обьект request 
 
 def index(request):
@@ -86,3 +88,14 @@ class ArticleDetailView(generic.DetailView):
 class ArticlesViewSet(viewsets.ModelViewSet):
     queryset = Articles.objects.all()
     serializer_class = ArticlesSerializer1
+
+def FormView(request):
+    if request.method=="POST":
+        form=ArticleForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect("/сәтті жүктелді/")
+    else:
+        form=ArticleForm()
+    return render(request,"team_form.html", {"form":form})
+
