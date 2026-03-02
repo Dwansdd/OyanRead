@@ -33,16 +33,25 @@
 
    {% if user.is_authenticated %}
    <div class="user-info">
-     <li>User: {{ user.get_username }}</li>
-     <li><form method="post" action="{% url 'logout' %}">
+    <div class="login_logout">
+      <li>User: {{ user.get_username }}</li>
+      <li><form method="post" action="{% url 'logout' %}">
             {% csrf_token %}
             <button type="submit">Шығу</button>
-        </form>
-     </li>
+          </form>
+      </li>
    {% else %}
-     <li><a href="{% url 'login'%}?next={{request.path}}">Кіру</a></li>
+      <li><a href="{% url 'login'%}?next={{request.path}}">Кіру</a></li>
    {% endif %}
   </ul>
+    </div>
+    <div class="registration">
+      <li><form method="post" action="{% url 'rega' %}">
+            {% csrf_token %}
+            <button type="submit">Тіркелу</button>
+          </form>
+    </div>
   </div>
+
   </body>
 </html>

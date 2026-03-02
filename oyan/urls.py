@@ -37,4 +37,5 @@ urlpatterns = [
     path('login/', LoginView.as_view(template_name="registration/register.html"), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('addarticle/', views.FormView, name='add_article'),
+    path('registration/', views.ReigisterForm, name='rega'),
 ]

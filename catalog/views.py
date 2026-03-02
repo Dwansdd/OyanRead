@@ -3,7 +3,7 @@ import requests
 from .models import Articles, Author, Genre
 from django.http import JsonResponse, HttpResponse
 from catalog.models import Articles
-from .serializers import ArticleSerializer
+from .serializers import ArticleSerializer, ArticlesSerializer1
 from django.views.generic.detail import DetailView
 from django.views import generic
 from catalog.models import Articles
@@ -12,10 +12,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework import viewsets
-from .models import Author, Genre, Articles
-from .serializers import ArticlesSerializer1
-from oyan.forms import ArticleForm
+from oyan.forms import ArticleForm, UserRegisterForm
 from django.http import HttpResponseRedirect
+from django.contrib import messages
 # прописываем логику в обьект request 
 
 def index(request):
@@ -89,6 +88,8 @@ class ArticlesViewSet(viewsets.ModelViewSet):
     queryset = Articles.objects.all()
     serializer_class = ArticlesSerializer1
 
+
+@login_required
 def FormView(request):
     if request.method=="POST":
         form=ArticleForm(request.POST)
@@ -99,3 +100,16 @@ def FormView(request):
         form=ArticleForm()
     return render(request,"team_form.html", {"form":form})
 
+
+def ReigisterForm(request):
+    if request.method=="POST":
+        register_form=UserRegisterForm(request.POST)
+    else:
+        register_form=UserRegisterForm()
+
+    if register_form.is_valid():
+            register_form.save()
+            username=register_form.cleaned_data.get("username")
+            messages.success(request, f'сіз сәтті тіркелдіңіз {username}')
+            return HttpResponseRedirect("/")
+    return render(request,"registration_user.html", {"form":register_form})

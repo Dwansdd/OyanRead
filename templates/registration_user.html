@@ -1,0 +1,13 @@
+{% extends "base_generic.html" %}
+{% block content %}
+<form action="{% url 'rega' %}" method="post">
+    {% csrf_token %}
+    {% for field in form %}
+        <div class="regafieldWrapper">
+            {{ field.label_tag }} {{ field }}
+            {{ field.errors }}
+        </div>
+    {% endfor %}
+    <button type="submit">Зарегистрироваться</button>
+</form>
+{% endblock %}
