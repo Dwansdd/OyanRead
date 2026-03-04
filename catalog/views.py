@@ -1,20 +1,23 @@
 from django.shortcuts import render
-import requests
-from .models import Articles, Author, Genre
-from django.http import JsonResponse, HttpResponse
-from catalog.models import Articles
-from .serializers import ArticleSerializer, ArticlesSerializer1
-from django.views.generic.detail import DetailView
+from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.views import generic
-from catalog.models import Articles
-from requests.utils import quote
+from django.views.generic.detail import DetailView
+from django.db.models import Q
+from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+
 from rest_framework import viewsets
+
+import requests
+from requests.utils import quote
+
+from catalog.models import Articles, Author, Genre
+
+from .serializers import ArticleSerializer, ArticlesSerializer1
+
 from oyan.forms import ArticleForm, UserRegisterForm
-from django.http import HttpResponseRedirect
-from django.contrib import messages
 # прописываем логику в обьект request 
 
 def index(request):
@@ -28,13 +31,13 @@ def index(request):
     )
 
 # рендер оборачивает несколько вызовов в один и ищет файл куда будет вставялтся шаблон
-def article_view_api(req):
+def article_view_api(request):
     print("view!!")
     articles = [
-        "Алматы",
-        "Астана",
-        "Қазақстан",
-        "Шымкент"
+        "Денсаулық",
+        "Білім",
+        "Алаш партиясы",
+        "Экономика"
     ]
     headers = {"User-Agent": "Oyan/1.0 (duimagambetovadaneliya@example.com)"}
     for title in articles:
@@ -62,27 +65,30 @@ def article_view_api(req):
     return HttpResponse("Articles saved successfully")
 
 
+class Search(generic.ListView):
+    model=Articles
+    template_name = 'article.html'
+
+    def get_queryset(self):
+        return Articles.objects.filter(title__icontains=self.request.GET.get('q'))
+    #     query=self.request.GET.get('q')
+    #     object_list=Articles.objects.filter(
+    #         Q(name__icontains=query)
+    # )
+    #     return object_list
+    
 class archive_articleslist(generic.ListView):
     model=Articles
     template_name = 'article.html'
     context_object_name = "articles_list"
+
+
 # LoginRequiredMixin
 class ArticleDetailView(generic.DetailView):
     model=Articles
     template_name='article_detail.html'
     context_object_name = "article"
 
-# user=User.objects.create_user('myusername', 'myemail@crazymail.com', 'mypassword')
-
-# user.first_name='Daneliya'
-# user.last_name='Duima'
-
-# user.save()
-
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context["now"] = timezone.now()
-#         return context
 
 class ArticlesViewSet(viewsets.ModelViewSet):
     queryset = Articles.objects.all()

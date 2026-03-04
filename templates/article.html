@@ -1,12 +1,16 @@
 {% extends "base_generic.html" %}
 {% block content %}
     <h1>Мақалалар Мұрағаты</h1>
+<form action="{%url 'search'%}" method="get">
+  <input type="search" type="text" name="q" placeholder="Макалаларды Іздеу..">
+  <button type="submit" > Іздеу</button>
+</form>
 
     {% if articles_list %}
         <div class="container">
           <div class="row">
             {% for article in articles_list %}
-              <div class="col-sm-3">
+              <div class="col-sm-4">
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">
@@ -22,6 +26,7 @@
         </div>
 <!-- <a href="{{ article.get_absolute_url }}">{{ article.title }}</a> ({{article.author}}) -->
     {% else %}
-      <p>There are no articles in the archive.</p>
+      <p>Мұрағатта мақалалар жоқ.</p>
     {% endif %}
+
 {% endblock %}

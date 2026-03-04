@@ -21,8 +21,7 @@ from catalog import views
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LoginView, LogoutView
 from rest_framework.routers import DefaultRouter
-from catalog.views import ArticlesViewSet
-
+from catalog.views import ArticlesViewSet,Search
 router = DefaultRouter()
 router.register(r'articles', ArticlesViewSet)
 
@@ -38,4 +37,5 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
     path('addarticle/', views.FormView, name='add_article'),
     path('registration/', views.ReigisterForm, name='rega'),
+    path('search/',Search.as_view(), name='search'),
 ]
