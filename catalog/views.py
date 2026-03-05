@@ -15,6 +15,7 @@ from requests.utils import quote
 
 from catalog.models import Articles, Author, Genre
 
+
 from .serializers import ArticleSerializer, ArticlesSerializer1
 
 from oyan.forms import ArticleForm, UserRegisterForm
@@ -31,13 +32,52 @@ def index(request):
     )
 
 # рендер оборачивает несколько вызовов в один и ищет файл куда будет вставялтся шаблон
+
+
+@login_required
+def article_add_view_api(request):
+    query = request.GET.get("q")
+    article_added = None
+
+    if query:
+        headers = {"User-Agent": "Oyan/1.0 (duimagambetovadaneliya@example.com)"}
+        url = f"https://kk.wikipedia.org/api/rest_v1/page/summary/{quote(query)}"
+        response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            wiki_data = response.json()
+            data = {
+                "title": wiki_data.get("title"),
+                "description": wiki_data.get("extract"),
+                "content": wiki_data.get("extract"),
+                "image": wiki_data.get("thumbnail", {}).get("source"),
+                "source_url": wiki_data.get("content_urls", {})
+                    .get("desktop", {})
+                    .get("page"),
+            }
+            if not Articles.objects.filter(title=data['title']).exists():
+                serializer = ArticleSerializer(data=data)
+                if serializer.is_valid():
+                    serializer.save()
+                    article_added = data 
+                else:
+                    print(serializer.errors)
+            else:
+                print("Такая статья уже есть")
+
+    context = {
+        "query": query,
+        "article_added": article_added
+    }
+
+    return render(request, 'add_article.html', context)
+
+
+
+
 def article_view_api(request):
     print("view!!")
     articles = [
-        "Денсаулық",
-        "Білім",
-        "Алаш партиясы",
-        "Экономика"
+        
     ]
     headers = {"User-Agent": "Oyan/1.0 (duimagambetovadaneliya@example.com)"}
     for title in articles:
@@ -62,7 +102,6 @@ def article_view_api(request):
                 serializer.save()
             else:
                 print(serializer.errors)
-    return HttpResponse("Articles saved successfully")
 
 
 class Search(generic.ListView):

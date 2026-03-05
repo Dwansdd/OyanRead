@@ -8,21 +8,23 @@ body{
     box-sizing: border-box;
     height: 100vh;  
     width: 200px;    
-    padding: 20px;
+    padding: 12px 20px;
+    list-style: none;
+    min-height: 150vh;
 }
 
-
-/* fca311 */
-/* 621b00 */
+.sidebar-nav li {
+        margin-bottom: 10px;
+}
+.user-info, .registration {
+        margin-top: 20px;
+        color:#FFFAF0;
+        text-decoration: none;
+}
 
 .sidebar-nav a{
     text-decoration: none;
     color:#FFFAF0;
-}
-
-.user-info{
-    color:#FFFAF0;
-    text-decoration: none;
 }
 
 .card{
@@ -36,14 +38,5 @@ body{
 
 .card-body a{
     color: #FFFAF0;
-    text-decoration: none;
-}
-
-
-.card-body{
-    color: #FFFAF0;
-}
-
-.card title a:active{
     text-decoration: none;
 }

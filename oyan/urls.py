@@ -38,4 +38,5 @@ urlpatterns = [
     path('addarticle/', views.FormView, name='add_article'),
     path('registration/', views.ReigisterForm, name='rega'),
     path('search/',Search.as_view(), name='search'),
+    path('add/',views.article_add_view_api, name='extra')
 ]

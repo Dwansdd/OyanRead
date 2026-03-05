@@ -1,0 +1,16 @@
+<form action="{% url 'extra' %}" method="get">
+  <input type="search" name="q" placeholder="Макалаларды Іздеу..">
+  <button type="submit">Іздеу</button>
+</form>
+
+{% if query %}
+    <p>Вы искали: {{ query }}</p>
+{% endif %}
+
+{% if article_added %}
+    <h3>Статья добавлена:</h3>
+    <p>Название: {{ article_added.title }}</p>
+    <p>Описание: {{ article_added.description }}</p>
+{% elif query %}
+    <p>Не удалось добавить статью.</p>
+{% endif %}

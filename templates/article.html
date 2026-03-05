@@ -1,8 +1,10 @@
 {% extends "base_generic.html" %}
 {% block content %}
     <h1>Мақалалар Мұрағаты</h1>
+
+    
 <form action="{%url 'search'%}" method="get">
-  <input type="search" type="text" name="q" placeholder="Макалаларды Іздеу..">
+  <input class="search-field" name="q" placeholder="Макалаларды Іздеу..">
   <button type="submit" > Іздеу</button>
 </form>
 
@@ -10,13 +12,12 @@
         <div class="container">
           <div class="row">
             {% for article in articles_list %}
-              <div class="col-sm-4">
+              <div class="col-sm-4 mb-4 mt-3">
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">
                       <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
                     </h4>
-                    <!-- <p class="card-text">Some example text. Some example text.</p> -->
                     <a href="{{ article.get_absolute_url }}" class="card-link">толығырақ оқыңыз</a>
                   </div>
                 </div>
@@ -24,7 +25,6 @@
             {% endfor %}
           </div>
         </div>
-<!-- <a href="{{ article.get_absolute_url }}">{{ article.title }}</a> ({{article.author}}) -->
     {% else %}
       <p>Мұрағатта мақалалар жоқ.</p>
     {% endif %}
