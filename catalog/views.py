@@ -74,7 +74,7 @@ def article_add_view_api(request):
 
 
 
-def article_view_api(request):
+def article_view_api():
     print("view!!")
     articles = [
         
@@ -139,11 +139,23 @@ def FormView(request):
     if request.method=="POST":
         form=ArticleForm(request.POST)
         if form.is_valid():
-            form.save()
-            return HttpResponseRedirect("/сәтті жүктелді/")
+            article=form.save(commit=False)
+            article.author=request.user
+            article.save()
+            return HttpResponseRedirect("сәтті жүктелді")
     else:
         form=ArticleForm()
-    return render(request,"team_form.html", {"form":form})
+    user_article=Articles.objects.filter(author=request.user)
+    return render(
+    request,
+    "team_form.html",
+    {
+        "form": form,
+        "user_article": user_article
+    }
+)
+
+    
 
 
 def ReigisterForm(request):

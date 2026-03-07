@@ -2,6 +2,14 @@ from django.db import models
 from django.urls import reverse
 from django.contrib import admin
 
+from django.contrib.auth.models import AbstractUser
+from django.db import models
+
+from django.conf import settings
+
+# class CustomUser(AbstractUser):
+#     pass
+
 class Author(models.Model):
     name=models.CharField(max_length=100)
     def __str__(self):
@@ -22,8 +30,8 @@ class Articles(models.Model):
     description=models.TextField(null=True, blank=True)
     content = models.TextField(default='')
     image = models.URLField(blank=True, null=True)
-    release=models.DateTimeField(blank=True, null=True)
-    author=models.ForeignKey("Author", on_delete=models.CASCADE,null=True, blank=True)
+    release=models.DateField(blank=True, null=True)
+    author=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,null=True, blank=True)
     genre=models.ForeignKey("Genre", on_delete=models.CASCADE,null=True, blank=True)
     source_url = models.URLField(max_length=500,blank=True, null=True)
 

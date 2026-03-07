@@ -1,16 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
 <form action="{% url 'extra' %}" method="get">
   <input type="search" name="q" placeholder="Макалаларды Іздеу..">
   <button type="submit">Іздеу</button>
 </form>
 
 {% if query %}
-    <p>Вы искали: {{ query }}</p>
+    <p>Сіз іздедіңіз: {{ query }}</p>
 {% endif %}
 
 {% if article_added %}
-    <h3>Статья добавлена:</h3>
-    <p>Название: {{ article_added.title }}</p>
-    <p>Описание: {{ article_added.description }}</p>
+    <h3>Мақала қосылды:</h3>
+    <p>Тақырыбы: {{ article_added.title }}</p>
+    <p>Сипаттама: {{ article_added.description }}</p>
 {% elif query %}
-    <p>Не удалось добавить статью.</p>
+    <p>Қате: мақала қосылмаған</p>
 {% endif %}
+{% endblock %}

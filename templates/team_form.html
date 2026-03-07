@@ -1,13 +1,30 @@
 {% extends "base_generic.html" %}
+
 {% block content %}
+<h1>Мақала қосыңыз</h1>
 <form action="{% url 'add_article' %}" method="post">
     {% csrf_token %}
-    {%for field in form%}
+    {% for field in form %}
         <div class="fieldWrapper">
-            {{field.errors}}
-            {{field.label_tag}}  {{field}}
+            {{ field.errors }}
+            {{ field.label_tag }} {{ field }}
         </div>
     {% endfor %}
-    <input type="submit" value="сақтау">
+    <input type="submit" value="Сақтау">
 </form>
+
+
+<hr>
+
+
+<h2>Менің макалаларым</h2>
+{% if user_article %}
+    <ul>
+    {% for article in user_article %}
+        <li>{{ article.title }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Сізде әлі мақалалар жоқ.</p>
+{% endif %}
 {% endblock %}
