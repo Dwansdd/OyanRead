@@ -8,14 +8,19 @@ class ArticleForm(forms.ModelForm):
     class Meta:
         model = Articles
         fields = ['title', 'description', 'content', 'release']
-        labels = {
-            "title": "мақала тақырыбы",
-            "description": "сипаттама",
-            "content": "мазмұны",
-        }
+
         widgets = {
-            "content": forms.Textarea(attrs={"minlength": 100, "maxlength": 2000}),
-            "release": forms.DateInput(attrs={"type": "date"})
+            'title': forms.TextInput(attrs={'class': 'title-class'}),
+            'description': forms.Textarea(attrs={'class': 'content-class'}),
+            'content': forms.Textarea(attrs={
+                'class': 'content-class',
+                 "minlength": 100, 
+                 "maxlength": 2000
+            }),
+            "release": forms.DateInput(attrs={
+                "type": "date",
+                'class': 'release-class',
+                })
         }
 
     # title = forms.CharField(label="мақала тақырыбы", max_length=70)

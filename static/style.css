@@ -1,7 +1,9 @@
+
 body{
     background-color: #f5f3f4;
 }
 
+/* главное  меню */
 .sidebar-nav{
     position: fixed;
     background-color: #222831;
@@ -16,16 +18,18 @@ body{
 .sidebar-nav li {
         margin-bottom: 10px;
 }
-.user-info, .registration {
-        margin-top: 20px;
-        color:#FFFAF0;
-        text-decoration: none;
-}
+
 
 .sidebar-nav a{
     text-decoration: none;
     color:#FFFAF0;
 }
+
+.sidebar-nav .rega{
+    color: #eb5e28;
+}
+
+/* карточки */
 
 .card{
     display: flex;
@@ -39,4 +43,29 @@ body{
 .card-body a{
     color: #FFFAF0;
     text-decoration: none;
+}
+
+/* детальная информация статей */
+
+
+/* форма регистрации */
+
+.title-class {
+    width: 400px;
+    height: 60px;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+
+.content-class {
+    width: 100%; 
+    height: 400px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.release-class {
+    width: 200px;
+    height: 35px;
 }

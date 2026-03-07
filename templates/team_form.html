@@ -3,13 +3,19 @@
 {% block content %}
 <h1>Мақала қосыңыз</h1>
 <form action="{% url 'add_article' %}" method="post">
-    {% csrf_token %}
-    {% for field in form %}
-        <div class="fieldWrapper">
-            {{ field.errors }}
-            {{ field.label_tag }} {{ field }}
-        </div>
-    {% endfor %}
+    
+    <label>Тақырып:</label><br>
+    {{ form.title }}<br><br>
+
+    <label>Қысқаша сипаттама:</label><br>
+    {{ form.description }}<br><br>
+
+    <label>Мақаланың толық мазмұны:</label><br>
+    {{ form.content }}<br><br>
+
+    <label>Жариялау күні:</label><br>
+    {{ form.release }}<br><br>
+
     <input type="submit" value="Сақтау">
 </form>
 
@@ -17,7 +23,7 @@
 <hr>
 
 
-<h2>Менің макалаларым</h2>
+<h2>Менің мақалаларым</h2>
 {% if user_article %}
     <ul>
     {% for article in user_article %}

@@ -1,13 +1,27 @@
 {% extends "base_generic.html" %}
+
 {% block content %}
-  <h1>Title: {{ article.title }}</h1>
+<div class="article-container">
 
-  <p><strong>Author:</strong> {{ article.author }}</p>
-  <p><strong>Description:</strong> {{ article.description }}</p>
-  <p><strong>Genre:</strong> {% for genre in article.genre.all %} {{ genre }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+  <h1 class="article-title">{{ article.title }}</h1>
 
-  <div style="margin-left:20px;margin-top:20px">
-    <h4>Content</h4>
-    <p><strong>Content:</strong> {{ article.content }}</p>
+  <div class="article-meta">
+    <p><strong>Автор:</strong> {{ article.author }}</p>
+    <p><strong>Жанр:</strong>
+      {% for genre in article.genre.all %}
+        {{ genre }}{% if not forloop.last %}, {% endif %}
+      {% endfor %}
+    </p>
   </div>
+
+  <div class="article-description">
+    <h4>Сипаттамасы</h4>
+    <p>{{ article.description }}</p>
+  </div>
+  <div class="article-content">
+    <h4>Мазмұны</h4>
+    <p>{{ article.content }}</p>
+  </div>
+
+</div>
 {% endblock %}
