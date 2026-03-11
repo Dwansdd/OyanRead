@@ -9,7 +9,7 @@ body{
     background-color: #222831;
     box-sizing: border-box;
     height: 100vh;  
-    width: 200px;    
+    width: 205px;    
     padding: 12px 20px;
     list-style: none;
     min-height: 150vh;
@@ -25,9 +25,6 @@ body{
     color:#FFFAF0;
 }
 
-.sidebar-nav .rega{
-    color: #eb5e28;
-}
 
 /* карточки */
 
@@ -44,6 +41,8 @@ body{
     color: #FFFAF0;
     text-decoration: none;
 }
+
+
 
 /* детальная информация статей */
 

@@ -1,5 +1,6 @@
 {% extends "base_generic.html" %}
 {% block content %}
+<h2>Тіркелу</h2>
 <form action="{% url 'rega' %}" method="post">
     {% csrf_token %}
     {% for field in form %}
@@ -8,6 +9,6 @@
             {{ field.errors }}
         </div>
     {% endfor %}
-    <button type="submit">Зарегистрироваться</button>
+    <button class="btn mt-3" style="background-color:#bf4342; color: #fff;">Тіркелу</button>
 </form>
 {% endblock %}

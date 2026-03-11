@@ -1,36 +1,44 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<h1>Мақала қосыңыз</h1>
-<form action="{% url 'add_article' %}" method="post">
+
+<div class="bg-dark text-light ">
     
-    <label>Тақырып:</label><br>
-    {{ form.title }}<br><br>
+    <form action="{% url 'add_article' %}" method="post" class=" m-5 mt-1 ">
+        <h1>Мақала қосыңыз</h1>
+    <div class="fs-6">
+        <label>Тақырып:</label><br>
+        {{ form.title }}<br><br>
 
-    <label>Қысқаша сипаттама:</label><br>
-    {{ form.description }}<br><br>
+        <label>Қысқаша сипаттама:</label><br>
+        {{ form.description }}<br><br>
 
-    <label>Мақаланың толық мазмұны:</label><br>
-    {{ form.content }}<br><br>
+        <label>Мақаланың толық мазмұны:</label><br>
+        {{ form.content }}<br><br>
 
-    <label>Жариялау күні:</label><br>
-    {{ form.release }}<br><br>
+        <label>Жариялау күні:</label><br>
+        {{ form.release }}<br><br>
 
-    <input type="submit" value="Сақтау">
-</form>
+        <button class="btn btn-lg mt-3" style="background-color:#bf4342; color:#fff;">
+            Сақтау
+        </button>
+    </div>
+    </form>
+    <hr>
 
+    <div class=" m-5 mt-1"> 
 
-<hr>
+        <h2>Менің мақалаларым</h2>
 
-
-<h2>Менің мақалаларым</h2>
-{% if user_article %}
-    <ul>
-    {% for article in user_article %}
-        <li>{{ article.title }}</li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>Сізде әлі мақалалар жоқ.</p>
-{% endif %}
+        {% if user_article %}
+            <ul>
+            {% for article in user_article %}
+                <li>{{ article.title }}</li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>Сізде әлі мақалалар жоқ.</p>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}

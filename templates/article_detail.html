@@ -1,7 +1,7 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<div class="article-container">
+<div class="article-container m-2 mt-1">
 
   <h1 class="article-title">{{ article.title }}</h1>
 
@@ -17,6 +17,9 @@
   <div class="article-description">
     <h4>Сипаттамасы</h4>
     <p>{{ article.description }}</p>
+  </div>
+  <div class="article-image">
+    <img src="{{article.image}}" alt="">
   </div>
   <div class="article-content">
     <h4>Мазмұны</h4>

@@ -45,11 +45,18 @@ def article_add_view_api(request):
         response = requests.get(url, headers=headers)
         if response.status_code == 200:
             wiki_data = response.json()
+            image = None
+
+            if "thumbnail" in wiki_data:
+                image = wiki_data["thumbnail"]["source"]
+            elif "originalimage" in wiki_data:
+                image = wiki_data["originalimage"]["source"]
             data = {
                 "title": wiki_data.get("title"),
                 "description": wiki_data.get("extract"),
                 "content": wiki_data.get("extract"),
-                "image": wiki_data.get("thumbnail", {}).get("source"),
+                'image':image,
+                # "image": wiki_data.get("thumbnail", {}).get("source"),
                 "source_url": wiki_data.get("content_urls", {})
                     .get("desktop", {})
                     .get("page"),
@@ -70,8 +77,6 @@ def article_add_view_api(request):
     }
 
     return render(request, 'add_article.html', context)
-
-
 
 
 def article_view_api():
@@ -110,11 +115,7 @@ class Search(generic.ListView):
 
     def get_queryset(self):
         return Articles.objects.filter(title__icontains=self.request.GET.get('q'))
-    #     query=self.request.GET.get('q')
-    #     object_list=Articles.objects.filter(
-    #         Q(name__icontains=query)
-    # )
-    #     return object_list
+
     
 class archive_articleslist(generic.ListView):
     model=Articles

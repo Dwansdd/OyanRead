@@ -33,7 +33,7 @@ urlpatterns = [
     path('article/<int:pk>/', views.ArticleDetailView.as_view(), name='article_detail'),
     path('allarticles/load/',views.article_view_api, name='article_api'),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('login/', LoginView.as_view(template_name="registration/register.html"), name='login'),
+    path('login/', LoginView.as_view(template_name="registration/login.html"), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('addarticle/', views.FormView, name='add_article'),
     path('registration/', views.ReigisterForm, name='rega'),
