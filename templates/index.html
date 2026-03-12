@@ -1,8 +1,14 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
+<!-- {% load static %} -->
 
-<h1>Oyan</h1>
+
+<div class="w-100">
+    <img src="{% static 'images/main_image.jpg' %}" class="main_img w-100" style="height: 100px; object-fit: cover; background-size: contain;">
+</div>
+
+<h1 class="text-center fw-bold display-2">Oyan</h1>
 
 <p><em>Oyan жобаға</em>, қош келдіңіз! Бұл сайтта қазақ тіліндегі білім беру мақалалары жинақталған.</p>
 
@@ -10,7 +16,6 @@
 
 <ul>
 <li><strong>Мақалалар:</strong> {{ num_articles }}</li>
-<li><strong>Авторлар:</strong> {{ num_authors }}</li>
 </ul>
 
 

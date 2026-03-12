@@ -5,14 +5,11 @@ body{
 
 /* главное  меню */
 .sidebar-nav{
-    position: fixed;
     background-color: #222831;
     box-sizing: border-box;
-    height: 100vh;  
-    width: 205px;    
     padding: 12px 20px;
     list-style: none;
-    min-height: 150vh;
+    min-height: 100vh;
 }
 
 .sidebar-nav li {

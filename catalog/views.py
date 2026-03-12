@@ -13,7 +13,7 @@ from rest_framework import viewsets
 import requests
 from requests.utils import quote
 
-from catalog.models import Articles, Author, Genre
+from catalog.models import Articles, Author
 
 
 from .serializers import ArticleSerializer, ArticlesSerializer1
@@ -23,12 +23,11 @@ from oyan.forms import ArticleForm, UserRegisterForm
 
 def index(request):
     num_articles=Articles.objects.all().count()
-    num_authors=Author.objects.count()
 # передаем в шаблон в контенте
     return render(
         request,
         'index.html',
-        context={'num_articles':num_articles,'num_authors':num_authors},
+        context={'num_articles':num_articles},
     )
 
 # рендер оборачивает несколько вызовов в один и ищет файл куда будет вставялтся шаблон
@@ -53,10 +52,8 @@ def article_add_view_api(request):
                 image = wiki_data["originalimage"]["source"]
             data = {
                 "title": wiki_data.get("title"),
-                "description": wiki_data.get("extract"),
                 "content": wiki_data.get("extract"),
                 'image':image,
-                # "image": wiki_data.get("thumbnail", {}).get("source"),
                 "source_url": wiki_data.get("content_urls", {})
                     .get("desktop", {})
                     .get("page"),
@@ -80,7 +77,6 @@ def article_add_view_api(request):
 
 
 def article_view_api():
-    print("view!!")
     articles = [
         
     ]
@@ -92,7 +88,6 @@ def article_view_api():
             wiki_data = response.json()
             data = {
             "title": wiki_data.get("title"),
-            "description": wiki_data.get("extract"),
             "content": wiki_data.get("extract"),
             "image": wiki_data.get("thumbnail", {}).get("source"),
             "source_url": wiki_data.get("content_urls", {})
@@ -143,7 +138,7 @@ def FormView(request):
             article=form.save(commit=False)
             article.author=request.user
             article.save()
-            return HttpResponseRedirect("сәтті жүктелді")
+            return HttpResponseRedirect("/")
     else:
         form=ArticleForm()
     user_article=Articles.objects.filter(author=request.user)

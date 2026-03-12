@@ -6,17 +6,16 @@
   <h1 class="article-title">{{ article.title }}</h1>
 
   <div class="article-meta">
-    <p><strong>Автор:</strong> {{ article.author }}</p>
-    <p><strong>Жанр:</strong>
-      {% for genre in article.genre.all %}
-        {{ genre }}{% if not forloop.last %}, {% endif %}
-      {% endfor %}
-    </p>
-  </div>
 
-  <div class="article-description">
-    <h4>Сипаттамасы</h4>
-    <p>{{ article.description }}</p>
+
+    <p>
+      <strong>Автор:</strong> 
+      {% if article.author %}
+          {{ article.author }}
+      {% else %}
+          Бұл мақала Wikipedia-дан алынған
+      {% endif %}
+    </p>
   </div>
   <div class="article-image">
     <img src="{{article.image}}" alt="">

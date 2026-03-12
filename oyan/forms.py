@@ -7,11 +7,10 @@ from catalog.models import Articles
 class ArticleForm(forms.ModelForm):
     class Meta:
         model = Articles
-        fields = ['title', 'description', 'content', 'release']
+        fields = ['title', 'content', 'release']
 
         widgets = {
             'title': forms.TextInput(attrs={'class': 'title-class'}),
-            'description': forms.Textarea(attrs={'class': 'content-class'}),
             'content': forms.Textarea(attrs={
                 'class': 'content-class',
                  "minlength": 100, 

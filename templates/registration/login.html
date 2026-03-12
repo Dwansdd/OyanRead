@@ -1,10 +1,14 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h2>Кіру</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button class="btn mt-3" style="background-color:#bf4342; color: #fff;">Кіру</button>
-  </form>
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="card bg-secondary text-white shadow-sm p-4" style="max-width: 450px; width: 100%;">
+        <h2 class="text-center mb-4">Кіру</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn mt-3 w-100" style="background-color:#bf4342; color: #fff;">Кіру</button>
+        </form>
+    </div>
+</div>
 {% endblock %}

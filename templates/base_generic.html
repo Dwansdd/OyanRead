@@ -23,41 +23,43 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
     {% load static %}
-    <link rel="stylesheet" href="{% static 'style.css' %}" />
+    <link rel="stylesheet" href="{% static 'style.css' %} ?{% now 'U' %}" />
 
     
   </head>
 
-    <body>
-    <div class="container-fluid "style="font-family: 'PT Mono', monospace;">
+    <body class="m-0 p-0">
+    <div class="container-fluid m-0 p-0 vh-100"style="font-family: 'PT Mono', monospace;">
       <div class="row">
         <!-- основа меню-главные сссылки -->
-        <div class="col-sm-2 ">
-          <ul class="sidebar-nav ">
+        <div class="col-sm-2 bg-light vh-100 p-3">
+          <ul class="sidebar-nav vh-100">
+            
             <div class="bg-light p-3 rounded text-center mb-4">
               <img src="{% static 'images/oyan_logo.png' %}" class="img-fluid">
             </div>
+
             <li class="mb-4 ">
               <a href="{% url 'index' %}">
-                <i class="bi bi-file-text me-2"></i>
+                <i class="bi bi-file-text me-2 fs-5"></i>
                 Басты бет
               </a>
             </li>
             <li class="mb-4">
               <a href="{% url 'archive_articles' %}">
-                <i class="bi bi-newspaper me-2"></i>
+                <i class="bi bi-newspaper me-2 fs-5"></i>
                 Барлық мақалалар
               </a>
             </li>
-            <li class="mb-4">
+            <li class="mb-4 ">
               <a href="{% url 'extra' %}">
-                <i class="bi bi-plus-square me-2"></i>
+                <i class="bi bi-plus-square me-2 fs-5"></i>
                 Мақаланы қосу
               </a>
             </li>
-            <li class="mb-4" > 
+            <li class="mb-4 text-light d-flex align-items-center" > 
               <a href="{% url 'add_article' %}" >
-                <i class="bi bi-journal-text me-2"></i>
+                <i class="bi bi-journal-text me-2 fs-5"></i>
                 Менің мақалаларым
               </a>
             </li>
@@ -66,7 +68,7 @@
 
             {% if user.is_authenticated %}
               <li class="text-light d-flex align-items-center">
-                  <i class="bi bi-person me-2"></i>
+                  <i class="bi bi-person me-2 fs-5"></i>
                   Пайдаланушы: {{ user.get_username }}
               </li>
               <li>
@@ -88,7 +90,7 @@
         </div>
 
         <!-- сама страница -->
-        <div class="col-sm-10">
+        <div class="col-sm-10 m-0 p-0">
           {% block content %}{% endblock %}
         </div>
       </div>

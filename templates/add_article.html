@@ -1,10 +1,13 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-
+  
 <form action="{% url 'extra' %}" method="get">
-  <input type="search" name="q" placeholder="Макалаларды Іздеу..">
-  <button type="submit">Іздеу</button>
+    <div class="mt-4 d-flex align-items-center mb-4">
+        <i class="bi bi-search me-2"></i>
+        <input type="search" name="q" placeholder="Макалаларды Іздеу.." class="form-control me-2">
+        <button class="btn" style="background-color:#bf4342; color:#fff;">Іздеу</button>
+    </div>
 </form>
 
 {% if query %}
