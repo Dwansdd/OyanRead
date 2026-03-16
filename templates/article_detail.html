@@ -20,10 +20,13 @@
   <div class="article-image">
     <img src="{{article.image}}" alt="">
   </div>
-  <div class="article-content">
-    <h4>Мазмұны</h4>
-    <p>{{ article.content }}</p>
-  </div>
+  <div class="article-content fs-5">
+    <h4 class="mb-4">Мазмұны</h4>
+
+    <p class="mb-4">
+      {{ article.content|linebreaks }}
+    </p>
+</div>
 
 </div>
 {% endblock %}

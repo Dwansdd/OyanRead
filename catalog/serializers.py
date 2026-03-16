@@ -7,7 +7,7 @@ class ArticleSerializer(serializers.ModelSerializer):
         fields = '__all__'
         extra_kwargs = {'author': {'required': False}}
 class ArticlesSerializer1(serializers.ModelSerializer):
-    # Optional: Nested serializers to show name instead of ID
+    
     author_name = serializers.ReadOnlyField(source='author.name')
 
     class Meta:

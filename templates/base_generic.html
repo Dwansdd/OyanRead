@@ -32,8 +32,8 @@
     <div class="container-fluid m-0 p-0 vh-100"style="font-family: 'PT Mono', monospace;">
       <div class="row">
         <!-- основа меню-главные сссылки -->
-        <div class="col-sm-2 bg-light vh-100 p-3">
-          <ul class="sidebar-nav vh-100">
+        <div class="col-sm-2 bg-lightP">
+          <ul class="sidebar-nav min-vh-100 position-sticky top-0">
             
             <div class="bg-light p-3 rounded text-center mb-4">
               <img src="{% static 'images/oyan_logo.png' %}" class="img-fluid">
@@ -90,7 +90,7 @@
         </div>
 
         <!-- сама страница -->
-        <div class="col-sm-10 m-0 p-0">
+        <div class="col-sm-10">
           {% block content %}{% endblock %}
         </div>
       </div>

@@ -7,9 +7,6 @@ from django.db import models
 
 from django.conf import settings
 
-# class CustomUser(AbstractUser):
-#     pass
-
 class Author(models.Model):
     name=models.CharField(max_length=100)
     def __str__(self):

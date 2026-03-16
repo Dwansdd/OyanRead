@@ -32,7 +32,7 @@ def index(request):
 
 # рендер оборачивает несколько вызовов в один и ищет файл куда будет вставялтся шаблон
 
-
+# api для добавления статей пользователем
 @login_required
 def article_add_view_api(request):
     query = request.GET.get("q")
@@ -75,10 +75,11 @@ def article_add_view_api(request):
 
     return render(request, 'add_article.html', context)
 
+# api 
 
-def article_view_api():
+def article_view_api(request):
     articles = [
-        
+    
     ]
     headers = {"User-Agent": "Oyan/1.0 (duimagambetovadaneliya@example.com)"}
     for title in articles:
@@ -86,24 +87,37 @@ def article_view_api():
         response=requests.get(url,headers=headers)
         if response.status_code==200:
             wiki_data = response.json()
+            image = None
+
+            if "thumbnail" in wiki_data:
+                image = wiki_data["thumbnail"]["source"]
+            elif "originalimage" in wiki_data:
+                image = wiki_data["originalimage"]["source"]
             data = {
-            "title": wiki_data.get("title"),
-            "content": wiki_data.get("extract"),
-            "image": wiki_data.get("thumbnail", {}).get("source"),
-            "source_url": wiki_data.get("content_urls", {})
+                "title": wiki_data.get("title"),
+                "content": wiki_data.get("extract"),
+                'image':image,
+                "source_url": wiki_data.get("content_urls", {})
                     .get("desktop", {})
                     .get("page"),
-}
-            if Articles.objects.filter(title=data['title']).exists():
-                continue
-
-            serializer=ArticleSerializer(data=data)
-            if  serializer.is_valid():
-                serializer.save()
+            }
+            min_len = 200
+            
+            if not data['content'] or len(data['content']) < min_len:
+                print(f"Статья '{data['title']}' слишком короткая")
             else:
-                print(serializer.errors)
+                if not Articles.objects.filter(title=data['title']).exists():
+                    serializer=ArticleSerializer(data=data)
+                    if  serializer.is_valid():
+                        serializer.save()
+                    else:
+                        print(serializer.errors)
+        else:
+            print(f"Ошибка при запросе статьи '{title}': {response.status_code}")
 
+    return HttpResponse("Статьи загружены успешно")
 
+# фильтр
 class Search(generic.ListView):
     model=Articles
     template_name = 'article.html'
@@ -111,25 +125,25 @@ class Search(generic.ListView):
     def get_queryset(self):
         return Articles.objects.filter(title__icontains=self.request.GET.get('q'))
 
-    
+# список статей сам архив
 class archive_articleslist(generic.ListView):
     model=Articles
     template_name = 'article.html'
     context_object_name = "articles_list"
 
 
-# LoginRequiredMixin
+# детальная инфа о статье
 class ArticleDetailView(generic.DetailView):
     model=Articles
     template_name='article_detail.html'
     context_object_name = "article"
 
-
+# рестапи
 class ArticlesViewSet(viewsets.ModelViewSet):
     queryset = Articles.objects.all()
     serializer_class = ArticlesSerializer1
 
-
+# написание собственной статьи
 @login_required
 def FormView(request):
     if request.method=="POST":
@@ -151,9 +165,7 @@ def FormView(request):
     }
 )
 
-    
-
-
+# регистрация
 def ReigisterForm(request):
     if request.method=="POST":
         register_form=UserRegisterForm(request.POST)
@@ -166,3 +178,5 @@ def ReigisterForm(request):
             messages.success(request, f'сіз сәтті тіркелдіңіз {username}')
             return HttpResponseRedirect("/")
     return render(request,"registration_user.html", {"form":register_form})
+
+
